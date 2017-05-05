@@ -5,10 +5,10 @@ from random import randint
 import Tkinter
 import tkMessageBox
 
-fluidsynth.init('FluidR3_GM.sf2',"alsa")
+fluidsynth.init('/usr/share/sounds/sf2/FluidR3_GM.sf2',"alsa")
 
 
-# maing dictionary for interval names
+#  dictionary for interval names
 intervals = {  1 : "kleine Sekunde", \
 2 : "große Sekunde" , \
 3 : "kleine Terz" , \
@@ -34,29 +34,158 @@ intervals = {  1 : "kleine Sekunde", \
 23 : "Oktave + große Septime" , \
 24 : "2 Oktaven" }
 
+chords_3_notes =[[0,4,7],#Dur Grundstellung
+                [0,4,9],#Dur Sextakkord
+                [0,5,9],#Dur Quartsextakkord
+                [0,3,7],#Moll Grundstellung
+                [0,3,8],#Moll Sextakkord
+                [0,5,8],#Moll Quartsextakkord
+                [0,3,6],#vermindert Grundstellung
+                [0,3,9],#vermindert Sextakkord
+                [0,6,9],#vermindert Quartsextakkord
+                [0,4,8]]#übermäßig
+
+chords_3_names = ["Dur Grundstellung",
+                "Dur Sextakkord",
+                "Dur Quartsextakkord",
+                "Moll Grundstellung",
+                "Moll Sextakkord",
+                "Moll Quartsextakkord",
+                "vermindert Grundstellung",
+                "vermindert Sextakkord",
+                "vermindert Quartsextakkord",
+                "übermäßig"]
+
+chords_4_notes = [[0,4,7,12], #Dur Grundstellung
+                  [0,3,8,12], #Dur Sextakkord
+                  [0,5,9,12], #Dur Quartsextakkord
+                  [0,3,7,12], #Moll Grundstellung
+                  [0,4,9,12], #Moll Sextakkord
+                  [0,5,8,12], #Moll Quartsextakkord
+                  [0,4,7,10], #Dur kleiner Septakkord, Grundstellung
+                  [0,3,6,8], #Dur kleiner Septakkord, Quintsextakkord
+                  [0,3,5,9], #Dur kleiner Septakkord, Terzquartakkord
+                  [0,2,6,9], #Dur kleiner Septakkord, Sekundakkord
+                  [0,3,7,10], #Moll kleiner Septakkord, Grundstellung
+                  [0,4,7,9], #Moll kleiner Septakkord, Quintsextakkord
+                  [0,3,5,8], #Moll kleiner Septakkord, Terzquartakkord
+                  [0,3,7,10], #Moll kleiner Septakkord, Sekundakkord
+                  [0,4,7,11], #Dur großer Septakkord, Grundstellung
+                  [0,3,7,8], #Dur großer Septakkord, Quintsextakkord
+                  [0,4,5,9], #Dur großer Septakkord, Terzquartakkord
+                  [0,1,5,8], #Dur großer Septakkord, Sekundakkord
+                  [0,3,7,11], #Moll großer Septakkord, Grundstellung
+                  [0,4,7,8], #Moll großer Septakkord, Quintsextakkord
+                  [0,4,5,8], #Moll kleiner Septakkord, Terzquartakkord
+                  [0,1,4,8], #Moll großer Septakkord, Sekundakkord
+                  [0,4,7,9], #Dur Sixtajoutee Grundstellung
+                  [0,3,7,9], #Dur Sixtajoutee 1. Umkehrung
+                  [0,2,5,8], #Dur Sixtajoutee 2. Umkehrung
+                  [0,3,7,10], #Dur Sixtajoutee 3. Umkehrung
+                  [0,3,7,9], #Moll Sixtajoutee Grundstellung
+                  [0,4,6,9], #Moll Sixtajoutee 1. Umkehrung
+                  [0,2,5,8], #Moll Sixtajoutee 2. Umkehrung
+                  [0,3,6,10], #Moll Sixtajoutee 3. Umkehrung
+                  [0,3,6,10], #Halbvermindert Grundstellung
+                  [0,3,7,9], #Halbvermindert Quintsextakkord
+                  [0,4,6,9], #Halbvermindert Terzquartakkord
+                  [0,2,5,8], #Halbvermindert Sekundakkord
+                  [0,3,6,9], #Ganzvermindert Grundstellung
+                  [0,3,6,9], #Ganzvermindert Quintsextakkord
+                  [0,3,6,9], #Ganzvermindert Terzquartakkord
+                  [0,3,6,9], #Ganzvermindert Sekundakkord
 
 
-def start_training():
+chords_4_names = ["Dur Grundstellung",
+                  "Dur Sextakkord",
+                  "Dur Quartsextakkord",
+                  "Moll Grundstellung",
+                  "Moll Sextakkord",
+                  "Moll Quartsextakkord",
+                  "Dur kleiner Septakkord, Grundstellung",
+                  "Dur kleiner Septakkord, Quintsextakkord",
+                  "Dur kleiner Septakkord, Terzquartakkord",
+                  "Dur kleiner Septakkord, Sekundakkord",
+                  "Dur großer Septakkord, Grundstellung",
+                  "Dur großer Septakkord, Quintsextakkord",
+                  "Dur großer Septakkord, Terzquartakkord",
+                  "Dur großer Septakkord, Sekundakkord",
+                  "Moll kleiner Septakkord, Grundstellung",
+                  "Moll kleiner Septakkord, Quintsextakkord",
+                  "Moll kleiner Septakkord, Terzquartakkord",
+                  "Moll kleiner Septakkord, Sekundakkord",
+                  "Moll großer Septakkord, Grundstellung",
+                  "Moll großer Septakkord, Quintsextakkord",
+                  "Moll großer Septakkord, Terzquartakkord",
+                  "Moll großer Septakkord, Sekundakkord",
+                  "Dur Sixtajoutee Grundstellung",
+                  "Dur Sixtajoutee 1. Umkehrung",
+                  "Dur Sixtajoutee 2. Umkehrung",
+                  "Dur Sixtajoutee 3. Umkehrung",
+                  "Moll Sixtajoutee Grundstellung",
+                  "Moll Sixtajoutee 1. Umkehrung",
+                  "Moll Sixtajoutee 2. Umkehrung",
+                  "Moll Sixtajoutee 3. Umkehrung",
+                  "Halbvermindert Grundstellung",
+                  "Halbvermindert Quintsextakkord",
+                  "Halbvermindert Terzquartakkord",
+                  "Halbvermindert Sekundakkord",
+                  "Ganzvermindert Grundstellung",
+                  "Ganzvermindert Quintsextakkord",
+                  "Ganzvermindert Terzquartakkord",
+                  "Ganzvermindert Sekundakkord",
+                  ]
+
+def start_chord_3_training():
+   for i in range(0,100):
+     base = randint(30,55)
+     idx = randint(0,len(chords_3_names)-1)
+
+     tkMessageBox.showinfo(" ", "Spiele Dreiklang!")
+     chord = chords_3_notes[idx]
+     for note in chord:
+         time.sleep(1)
+         fluidsynth.play_Note(note+base, 0,100)
+     time.sleep(2)
+     for note in chord:
+         fluidsynth.play_Note(note+base, 0,100)
+
+     tkMessageBox.showinfo(" ", "Zeige Lösung!")
+     s =  chords_3_names[idx]
+     tkMessageBox.showinfo("Die Antwort lautet: ", s)
+
+def start_chord_4_training():
+   for i in range(0,100):
+     base = randint(30,55)
+     idx = randint(0,len(chords_4_names)-1)
+     tkMessageBox.showinfo(" ", "Spiele Vierklang!")
+     chord = chords_4_notes[idx]
+
+     for note in chord:
+         fluidsynth.play_Note(note+base, 0,100)
+
+     tkMessageBox.showinfo(" ", "Zeige Lösung!")
+     s =  chords_4_names[idx]
+     tkMessageBox.showinfo("Die Antwort lautet: ", s)
+def start_interval_training():
 
    for i in range(0,100):
      lower = randint(30,55)
      upper = lower + randint(2,20)
      diff = upper - lower
-
-     tkMessageBox.showinfo(" ", "Play interval!")
-
+     tkMessageBox.showinfo(" ", "Spiele Intervall!")
      fluidsynth.play_Note(lower,0,100)
      fluidsynth.play_Note(upper,0,100)
-     time.sleep(1)
-
-     tkMessageBox.showinfo(" ", "Show solution!")
-
+     tkMessageBox.showinfo(" ", "Zeige Lösung!")
      s =  str(intervals[diff]) + "\n" + str(diff) + " Halbtonschritte"
-     tkMessageBox.showinfo("Answer is: ", s)
-
+     tkMessageBox.showinfo("Die Antwort lautet: ", s)
 
 window = Tkinter.Tk()
 
-B = Tkinter.Button(window, text ="Click here to start interval training!", command = start_training)
-B.pack()
+B1 = Tkinter.Button(window, text ="Intervalltraining", command = start_interval_training)
+B2 = Tkinter.Button(window, text ="Dreiklang Training", command = start_chord_3_training)
+B3 = Tkinter.Button(window, text ="Vierklang Training", command = start_chord_4_training)
+B1.pack()
+B2.pack()
+B3.pack()
 window.mainloop()
