@@ -69,7 +69,7 @@ chords_4_notes = [[0,4,7,12], #Dur Grundstellung
                   [0,3,7,10], #Moll kleiner Septakkord, Grundstellung
                   [0,4,7,9], #Moll kleiner Septakkord, Quintsextakkord
                   [0,3,5,8], #Moll kleiner Septakkord, Terzquartakkord
-                  [0,3,7,10], #Moll kleiner Septakkord, Sekundakkord
+                  [0,2,5,9], #Moll kleiner Septakkord, Sekundakkord
                   [0,4,7,11], #Dur großer Septakkord, Grundstellung
                   [0,3,7,8], #Dur großer Septakkord, Quintsextakkord
                   [0,4,5,9], #Dur großer Septakkord, Terzquartakkord
@@ -79,21 +79,16 @@ chords_4_notes = [[0,4,7,12], #Dur Grundstellung
                   [0,4,5,8], #Moll kleiner Septakkord, Terzquartakkord
                   [0,1,4,8], #Moll großer Septakkord, Sekundakkord
                   [0,4,7,9], #Dur Sixtajoutee Grundstellung
-                  [0,3,7,9], #Dur Sixtajoutee 1. Umkehrung
-                  [0,2,5,8], #Dur Sixtajoutee 2. Umkehrung
+                  [0,3,5,9], #Dur Sixtajoutee 1. Umkehrung
+                  [0,2,6,9], #Dur Sixtajoutee 2. Umkehrung
                   [0,3,7,10], #Dur Sixtajoutee 3. Umkehrung
                   [0,3,7,9], #Moll Sixtajoutee Grundstellung
                   [0,4,6,9], #Moll Sixtajoutee 1. Umkehrung
                   [0,2,5,8], #Moll Sixtajoutee 2. Umkehrung
                   [0,3,6,10], #Moll Sixtajoutee 3. Umkehrung
-                  [0,3,6,10], #Halbvermindert Grundstellung
-                  [0,3,7,9], #Halbvermindert Quintsextakkord
-                  [0,4,6,9], #Halbvermindert Terzquartakkord
-                  [0,2,5,8], #Halbvermindert Sekundakkord
-                  [0,3,6,9], #Ganzvermindert Grundstellung
-                  [0,3,6,9], #Ganzvermindert Quintsextakkord
-                  [0,3,6,9], #Ganzvermindert Terzquartakkord
-                  [0,3,6,9], #Ganzvermindert Sekundakkord
+                  [0,3,6,10], #Halbvermindert
+                  [0,3,6,9], #Ganzvermindert
+
 
 
 chords_4_names = ["Dur Grundstellung",
@@ -126,14 +121,8 @@ chords_4_names = ["Dur Grundstellung",
                   "Moll Sixtajoutee 1. Umkehrung",
                   "Moll Sixtajoutee 2. Umkehrung",
                   "Moll Sixtajoutee 3. Umkehrung",
-                  "Halbvermindert Grundstellung",
-                  "Halbvermindert Quintsextakkord",
-                  "Halbvermindert Terzquartakkord",
-                  "Halbvermindert Sekundakkord",
-                  "Ganzvermindert Grundstellung",
-                  "Ganzvermindert Quintsextakkord",
-                  "Ganzvermindert Terzquartakkord",
-                  "Ganzvermindert Sekundakkord",
+                  "Halbvermindert",
+                  "Ganzvermindert"
                   ]
 
 def start_chord_3_training():
@@ -160,7 +149,10 @@ def start_chord_4_training():
      idx = randint(0,len(chords_4_names)-1)
      tkMessageBox.showinfo(" ", "Spiele Vierklang!")
      chord = chords_4_notes[idx]
-
+     for note in chord:
+         time.sleep(1)
+         fluidsynth.play_Note(note+base, 0,100)
+     time.sleep(1)
      for note in chord:
          fluidsynth.play_Note(note+base, 0,100)
 
