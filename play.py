@@ -35,7 +35,7 @@ intervals = {  1 : "kleine Sekunde", \
 24 : "2 Oktaven" }
 
 chords_3_notes =[[0,4,7],#Dur Grundstellung
-                [0,4,9],#Dur Sextakkord
+                [0,3,8],#Dur Sextakkord
                 [0,5,9],#Dur Quartsextakkord
                 [0,3,7],#Moll Grundstellung
                 [0,3,8],#Moll Sextakkord
@@ -87,7 +87,7 @@ chords_4_notes = [[0,4,7,12], #Dur Grundstellung
                   [0,2,5,8], #Moll Sixtajoutee 2. Umkehrung
                   [0,3,6,10], #Moll Sixtajoutee 3. Umkehrung
                   [0,3,6,10], #Halbvermindert
-                  [0,3,6,9], #Ganzvermindert
+                  [0,3,6,9]] #Ganzvermindert
 
 
 
