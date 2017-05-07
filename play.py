@@ -38,7 +38,7 @@ chords_3_notes =[[0,4,7],#Dur Grundstellung
                 [0,3,8],#Dur Sextakkord
                 [0,5,9],#Dur Quartsextakkord
                 [0,3,7],#Moll Grundstellung
-                [0,3,8],#Moll Sextakkord
+                [0,4,9],#Moll Sextakkord
                 [0,5,8],#Moll Quartsextakkord
                 [0,3,6],#vermindert Grundstellung
                 [0,3,9],#vermindert Sextakkord
@@ -126,57 +126,103 @@ chords_4_names = ["Dur Grundstellung",
                   ]
 
 def start_chord_3_training():
-   for i in range(0,100):
-     base = randint(30,55)
-     idx = randint(0,len(chords_3_names)-1)
 
-     tkMessageBox.showinfo(" ", "Spiele Dreiklang!")
-     chord = chords_3_notes[idx]
-     for note in chord:
-         time.sleep(1)
-         fluidsynth.play_Note(note+base, 0,100)
-     time.sleep(2)
-     for note in chord:
-         fluidsynth.play_Note(note+base, 0,100)
+  while(True):
+    base = randint(30,55)
+    idx = randint(0,len(chords_3_names)-1)
+    tkMessageBox.showinfo(" ", "Spiele Dreiklang!")
+    chord = chords_3_notes[idx]
 
-     tkMessageBox.showinfo(" ", "Zeige Lösung!")
-     s =  chords_3_names[idx]
-     tkMessageBox.showinfo("Die Antwort lautet: ", s)
+    for note in chord:
+      fluidsynth.play_Note(note+base, 0,100)
+    time.sleep(1)
+    while(True):
+      result = tkMessageBox.askquestion("", "Dreiklang erneut abspielen?", icon='warning')
+      if result == 'yes':
+        for note in chord:
+          fluidsynth.play_Note(note+base, 0,100)
+        time.sleep(1)
+      else:
+        tkMessageBox.showinfo(" ", "Zeige Lösung!")
+        s =  chords_3_names[idx]
+        tkMessageBox.showinfo("Die Antwort lautet: ", s)
+        answer = tkMessageBox.askquestion("", "Zu Hauptmenü zurückkehren?", icon='warning')
+        if answer == 'yes': return
+        break
+
+
 
 def start_chord_4_training():
-   for i in range(0,100):
-     base = randint(30,55)
-     idx = randint(0,len(chords_4_names)-1)
-     tkMessageBox.showinfo(" ", "Spiele Vierklang!")
-     chord = chords_4_notes[idx]
-     for note in chord:
-         time.sleep(1)
-         fluidsynth.play_Note(note+base, 0,100)
-     time.sleep(1)
-     for note in chord:
-         fluidsynth.play_Note(note+base, 0,100)
 
-     tkMessageBox.showinfo(" ", "Zeige Lösung!")
-     s =  chords_4_names[idx]
-     tkMessageBox.showinfo("Die Antwort lautet: ", s)
+  while(True):
+    base = randint(30,55)
+    idx = randint(0,len(chords_4_names)-1)
+    tkMessageBox.showinfo(" ", "Spiele Vierklang!")
+    chord = chords_4_notes[idx]
+
+    for note in chord:
+      fluidsynth.play_Note(note+base, 0,100)
+    time.sleep(1)
+    while(True):
+      result = tkMessageBox.askquestion("", "Vierklang erneut abspielen?", icon='warning')
+      if result == 'yes':
+        for note in chord:
+          fluidsynth.play_Note(note+base, 0,100)
+        time.sleep(1)
+      else:
+        tkMessageBox.showinfo(" ", "Zeige Lösung!")
+        s =  chords_4_names[idx]
+        tkMessageBox.showinfo("Die Antwort lautet: ", s)
+        answer = tkMessageBox.askquestion("", "Zu Hauptmenü zurückkehren?", icon='warning')
+        if answer == 'yes': return
+        break
+
+
+
 def start_interval_training():
 
-   for i in range(0,100):
-     lower = randint(30,55)
-     upper = lower + randint(2,20)
-     diff = upper - lower
-     tkMessageBox.showinfo(" ", "Spiele Intervall!")
-     fluidsynth.play_Note(lower,0,100)
-     fluidsynth.play_Note(upper,0,100)
-     tkMessageBox.showinfo(" ", "Zeige Lösung!")
-     s =  str(intervals[diff]) + "\n" + str(diff) + " Halbtonschritte"
-     tkMessageBox.showinfo("Die Antwort lautet: ", s)
+  while(True):
+    lower = randint(30,55)
+    upper = lower + randint(2,20)
+    diff = upper - lower
+
+    tkMessageBox.showinfo(" ", "Spiele Intervall!")
+    fluidsynth.play_Note(lower,0,100)
+    fluidsynth.play_Note(upper,0,100)
+    time.sleep(1)
+    while(True):
+      result = tkMessageBox.askquestion("", "Intervall erneut abspielen?", icon='warning')
+      if result == 'yes':
+        fluidsynth.play_Note(lower,0,100)
+        fluidsynth.play_Note(upper,0,100)
+        time.sleep(1)
+      else:
+        tkMessageBox.showinfo(" ", "Zeige Lösung!")
+        s =  str(intervals[diff]) + "\n" + str(diff) + " Halbtonschritte"
+        tkMessageBox.showinfo("Die Antwort lautet: ", s)
+        answer = tkMessageBox.askquestion("", "Zu Hauptmenü zurückkehren?", icon='warning')
+        if answer == 'yes': return
+        break
+
+  # while(True):
+  #    lower = randint(30,55)
+  #    upper = lower + randint(2,20)
+  #    diff = upper - lower
+  #    tkMessageBox.showinfo(" ", "Spiele Intervall!")
+  #    fluidsynth.play_Note(lower,0,100)
+  #    fluidsynth.play_Note(upper,0,100)
+  #    tkMessageBox.showinfo(" ", "Zeige Lösung!")
+  #    s =  str(intervals[diff]) + "\n" + str(diff) + " Halbtonschritte"
+  #    tkMessageBox.showinfo("Die Antwort lautet: ", s)
+
+
 
 window = Tkinter.Tk()
 
 B1 = Tkinter.Button(window, text ="Intervalltraining", command = start_interval_training)
 B2 = Tkinter.Button(window, text ="Dreiklang Training", command = start_chord_3_training)
 B3 = Tkinter.Button(window, text ="Vierklang Training", command = start_chord_4_training)
+
 B1.pack()
 B2.pack()
 B3.pack()
